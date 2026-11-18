@@ -27,6 +27,8 @@ bool lygintiPagalPavarde(const studentas& a, const studentas& b);
 bool lygintiPagalGalutiniBala(const studentas& a, const studentas& b, int pasirinkimas);
 void rikiuotiStudentus(std::vector<studentas>&grupe, int rusiavimas, int pasirinkimas);
 void rikiuotiStudentus(std::list<studentas>&grupe, int rusiavimas, int pasirinkimas);
+void SkirstytiStudentus2(std::vector<studentas>& grupe, std::vector<studentas>& vargsiukai, int pasirinkimas);
+Void SkirstytiStudentus2(std::list<studentas>& grupe, std::list<studentas>& vargsiukai, int pasirinkimas);
 void skirstytiStudentus3(std::vector<studentas>& grupe, std::vector<studentas>& vargsiukai, int pasirinkimas);
 void skirstytiStudentus3(std::list<studentas>& grupe, std::list<studentas>& vargsiukai, int pasirinkimas);
 
@@ -137,24 +139,5 @@ void skirstytiStudentus (const T& grupe, T& vargsiukai, T& kietiakai, int pasiri
             kietiakai.push_back(s);
     }
 }
-template <typename T>
-void skirstytiStudentus2(T& grupe, T& vargsiukai, int pasirinkimas) {
-    vargsiukai.clear();
 
-    auto it = grupe.begin();
-    while (it != grupe.end()) {
-        double galutinis;
-        if (pasirinkimas == 1)
-            galutinis = it->vid_rez;
-        else
-            galutinis = it->med_rez;
-
-        if (galutinis < 5.0) {
-            vargsiukai.push_back(std::move(*it));
-            it = grupe.erase(it);
-        } else {
-            ++it;
-        }
-    }
-}
 #endif

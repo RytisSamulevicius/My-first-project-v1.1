@@ -151,6 +151,59 @@ void rikiuotiStudentus(std::list<studentas>& grupe, int rusiavimas, int pasirink
         });
     }
 }
+void skirstytiStudentus2(std::vector<studentas>& grupe, std::vector<studentas>& vargsiukai, int pasirinkimas) 
+{
+    vargsiukai.clear();
+
+    size_t i = 0;
+    while (i < grupe.size())
+    {
+        double galutinis;
+
+        if (pasirinkimas == 1)
+            galutinis = grupe[i].vid_rez;
+        else
+            galutinis = grupe[i].med_rez;
+
+        if (galutinis < 5.0) 
+        {
+            vargsiukai.push_back(std::move(grupe[i]));
+
+            If (i != grupe.size() - 1) {
+                grupe[i] = std::move(grupe.back());
+            }
+            grupe.pop_back();
+        } 
+        else 
+        {
+            ++i;
+        }
+    }
+}
+void skirstytiStudentus2(std::list<studentas>& grupe, std::list<studentas>& vargsiukai, int pasirinkimas) 
+{
+    vargsiukai.clear();
+
+    for (auto it = grupe.begin(); it != grupe.end(); ) 
+    {
+        double galutinis;
+
+        if (pasirinkimas == 1)
+            galutinis = it->vid_rez;
+        else
+            galutinis = it->med_rez;
+
+        if (galutinis < 5.0) 
+        {
+            vargsiukai.push_back(std::move(*it));
+            it = grupe.erase(it);
+        } 
+        else 
+        {
+            ++it;
+        }
+    }
+}
 void skirstytiStudentus3(std::vector<studentas>& grupe, std::vector<studentas>& vargsiukai, int pasirinkimas) 
 {
     vargsiukai.clear();
@@ -174,25 +227,24 @@ void skirstytiStudentus3(std::vector<studentas>& grupe, std::vector<studentas>& 
 }
 void skirstytiStudentus3(std::list<studentas>& grupe, std::list<studentas>& vargsiukai, int pasirinkimas) 
 {
-    vargsiukai.clear();
+   vargsiukai.clear();
 
-    auto it = grupe.begin();
-    while (it != grupe.end()) {
+    auto limitas = std::partition(grupe.begin(), grupe.end(), 
+    [pasirinkimas](const studentas& s) {
         double galutinis;
         if (pasirinkimas == 1)
-            galutinis = it->vid_rez;
+            galutinis = s.vid_rez;
         else
-            galutinis = it->med_rez;
+            galutinis = s.med_rez;
 
-        if (galutinis < 5.0) {
-            auto dabartinis = it;
-            ++it;
-            vargsiukai.splice(vargsiukai.end(), grupe, dabartinis);
-        }
-        else {
-            ++it;
-        }
-    }
+        return galutinis < 5.0;
+    });
+
+    vargsiukai.insert(vargsiukai.end(),
+        std::make_move_iterator(grupe.begin()), 
+        std::make_move_iterator(limitas));
+
+    grupe.erase(grupe.begin(), limitas);
 }
         
   
