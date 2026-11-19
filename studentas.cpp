@@ -23,5 +23,27 @@ studentas::studentas(const studentas&& originalas) noexcept
       vid_rez(originalas.vid_rez), 
       med_rez(originalas.med_rez) {
 }
+studentas& studentas::operator=(const studentas& originalas) {
+    if (this != &originalas) {
+        vardas = originalas.vardas;
+        pavarde = originalas.pavarde;
+        paz = originalas.paz;
+        exam = originalas.exam;
+        vid_rez = originalas.vid_rez;
+        med_rez = originalas.med_rez;
+    }
+    return *this;
+}
+studentas& studentas::operator=(studentas&& originalas) noexcept {
+    if (this != &originalas) {
+        vardas = std::move(originalas.vardas);
+        pavarde = std::move(originalas.pavarde);
+        paz = std::move(originalas.paz);
+        exam = originalas.exam;
+        vid_rez = originalas.vid_rez;
+        med_rez = originalas.med_rez;
+    }
+    return *this;
+}
 studentas::~studentas() {
 }
