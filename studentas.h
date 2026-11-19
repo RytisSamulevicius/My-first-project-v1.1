@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <iosfwd>
 
 class studentas {
 private:
@@ -36,6 +37,9 @@ public:
     int getExam() const;
     double getVidRez() const;
     double getMedRez() const;
+
+    bool nuskaityti(std::istream& s);
+    void skaiciuoti();
 
 };
 
