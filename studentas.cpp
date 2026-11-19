@@ -23,3 +23,5 @@ studentas::studentas(const studentas&& originalas) noexcept
       vid_rez(originalas.vid_rez), 
       med_rez(originalas.med_rez) {
 }
+studentas::~studentas() {
+}

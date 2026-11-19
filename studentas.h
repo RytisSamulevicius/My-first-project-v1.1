@@ -25,6 +25,15 @@ public:
     studentas(studentas&& originalas) noexcept;
 
     ~studentas();
+
+    const std::string& getVardas() const;
+    const std::string& getPavarde() const;
+    const std::vector<int>& getPaz() const;
+    
+    int getExam() const;
+    double getVidRez() const;
+    double getMedRez() const;
+
 };
 
 #endif // STUDENTAS_Hf
