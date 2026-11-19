@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <iomanip>
 
 using std::string;
 using std::vector;
@@ -16,6 +17,8 @@ using std::cout;
 using std::left;
 using std::right;
 using std::setw;
+using std::fixed;
+using std::setprecision;
 
 #include "studentas.h"
 
@@ -52,33 +55,12 @@ bool NuskaitytiFaila(const std::string & failo_pavadinimas, T& grupe)
     {
         std::stringstream s(eilute);
         studentas S;
-        s >> S.vardas >> S.pavarde;
-
-        std::vector<int> rezultatai;
-
-        int x;
-        bool klaida = false;
-        while(s >> x)
-        {
-            if(x < 1 || x > 10)
-             {
-                klaida = true;
-                break;
-             }
-            rezultatai.push_back(x);
-        }
-        if (klaida || !s.eof())
-        {
-            std::cout << "Klaida faile: " << eilute << "\n";
+        
+        if(!S.nuskaityti(s)) {
+            std::cout << "Klaida nuskaityme: " << eilute << "\n";
             continue;
         }
-        if (rezultatai.empty()) continue;
-
-        S.exam = rezultatai.back();
-        rezultatai.pop_back();
-        S.paz = std::move(rezultatai);
-
-        skaiciavimas(S);
+        S.skaiciuoti();
 
         grupe.push_back(std::move(S));
         
@@ -106,11 +88,11 @@ void IrasytiIFaila(const string & failo_pavadinimas, const T& studentai, int pas
     buferis << std::fixed << std::setprecision(2);
     for (const studentas& s : studentai) 
     {
-        buferis <<left<<setw(20)<<s.vardas<<setw(20)<<s.pavarde;
+        buferis <<left<<setw(20)<<s.getVardas()<<setw(20)<<s.getPavarde();
         if (pasirinkimas == 1)
-            buferis <<right<<setw(15)<<s.vid_rez;
+            buferis <<right<<setw(15)<<s.getVid_rez();
         else 
-            buferis <<right<<setw(15)<<s.med_rez;
+            buferis <<right<<setw(15)<<s.getMed_rez();
         buferis << "\n";
     }
     failas << buferis.str();
@@ -129,9 +111,9 @@ void skirstytiStudentus (const T& grupe, T& vargsiukai, T& kietiakai, int pasiri
     {
         double galutinis;
         if (pasirinkimas == 1)
-            galutinis = s.vid_rez;
+            galutinis = s.getVid_rez();
         else
-            galutinis = s.med_rez;
+            galutinis = s.getMed_rez();
 
         if (galutinis < 5.0) 
             vargsiukai.push_back(s);
