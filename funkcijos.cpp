@@ -204,41 +204,39 @@ void skirstytiStudentus3(std::vector<studentas>& grupe, std::vector<studentas>& 
 {
     vargsiukai.clear();
 
-    auto limitas = std::partition(grupe.begin(), grupe.end(), 
-    [pasirinkimas](const studentas& s) {
-        double galutinis;
-        if (pasirinkimas == 1)
-            galutinis = s.vid_rez;
-        else
-            galutinis = s.med_rez;
+    auto limitas = std::partition(
+        grupe.begin(), 
+        grupe.end(), 
+        [pasirinkimas](const studentas& s) {
+            return (pasirinkimas == 1 ? s.vid_rez : s.med_rez) >= 5.0;
+        }
+    
+    );
 
-        return galutinis < 5.0;
-    });
-
-    vargsiukai.insert(vargsiukai.end(),
-        std::make_move_iterator(grupe.begin()), 
-        std::make_move_iterator(limitas));
-
-    grupe.erase(grupe.begin(), limitas);
+   vargsiukai.insert(vargsiukai.end(), 
+   std::make_move_iterator(limitas), 
+   std::make_move_iterator(grupe.end())
+    );
+   
+   grupe.erase(limitas, grupe.end());
 }
 void skirstytiStudentus3(std::list<studentas>& grupe, std::list<studentas>& vargsiukai, int pasirinkimas) 
 {
     vargsiukai.clear();
 
-    auto limitas = std::partition(grupe.begin(), grupe.end(), 
-    [pasirinkimas](const studentas& s) {
-        double galutinis;
-        if (pasirinkimas == 1)
-            galutinis = s.vid_rez;
-        else
-            galutinis = s.med_rez;
+    auto limitas = std::partition(
+        grupe.begin(), 
+        grupe.end(), 
+        [pasirinkimas](const studentas& s) {
+            return (pasirinkimas == 1 ? s.vid_rez : s.med_rez) >= 5.0;
+        }
+    
+    );
 
-        return galutinis < 5.0;
-    });
-
-    vargsiukai.insert(vargsiukai.end(),
-        std::make_move_iterator(grupe.begin()), 
-        std::make_move_iterator(limitas));
-
-    grupe.erase(grupe.begin(), limitas);
+   vargsiukai.insert(vargsiukai.end(), 
+   std::make_move_iterator(limitas), 
+   std::make_move_iterator(grupe.end())
+    );
+   
+   grupe.erase(limitas, grupe.end());
 }
