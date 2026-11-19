@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 
-struct studentas {
-
+class studentas {
+private:
     std::string vardas;
     std::string pavarde;
     std::vector<int> paz;
@@ -13,6 +13,7 @@ struct studentas {
     double vid_rez;
     double med_rez;
   
+public:
 };
 
 #endif // STUDENTAS_Hf
