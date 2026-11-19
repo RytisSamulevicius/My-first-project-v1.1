@@ -151,47 +151,43 @@ void rikiuotiStudentus(std::list<studentas>& grupe, int rusiavimas, int pasirink
         });
     }
 }
-void skirstytiStudentus2(std::vector<studentas>& grupe, std::vector<studentas>& vargsiukai, int pasirinkimas) 
+void skirstytiStudentus2(std::vector<studentas>& grupe, std::vector<studentas> & vargsiukai, int pasirinkimas) 
 {
     vargsiukai.clear();
 
     size_t i = 0;
+
     while (i < grupe.size())
     {
-        double galutinis;
+        double galutinis = (pasirinkimas == 1)
+            ? grupe[i].vid_rez 
+            : grupe[i].med_rez;
 
-        if (pasirinkimas == 1)
-            galutinis = grupe[i].vid_rez;
-        else
-            galutinis = grupe[i].med_rez;
-
-        if (galutinis < 5.0) 
+        if (galutinis < 5.0)
         {
             vargsiukai.push_back(std::move(grupe[i]));
 
-            If (i != grupe.size() - 1) {
+            if (i != grupe.size() - 1) 
+            {
                 grupe[i] = std::move(grupe.back());
             }
             grupe.pop_back();
-        } 
-        else 
-        {
-            ++i;
         }
+        else
+        {
+            i++;
+        }       
     }
 }
-void skirstytiStudentus2(std::list<studentas>& grupe, std::list<studentas>& vargsiukai, int pasirinkimas) 
+void skirstytiStudentus2(std::list<studentas>& grupe, std::list<studentas> & vargsiukai, int pasirinkimas) 
 {
     vargsiukai.clear();
 
     for (auto it = grupe.begin(); it != grupe.end(); ) 
     {
-        double galutinis;
-
-        if (pasirinkimas == 1)
-            galutinis = it->vid_rez;
-        else
-            galutinis = it->med_rez;
+        double galutinis = (pasirinkimas == 1)
+            ? it->vid_rez 
+            : it->med_rez;
 
         if (galutinis < 5.0) 
         {
@@ -227,7 +223,7 @@ void skirstytiStudentus3(std::vector<studentas>& grupe, std::vector<studentas>& 
 }
 void skirstytiStudentus3(std::list<studentas>& grupe, std::list<studentas>& vargsiukai, int pasirinkimas) 
 {
-   vargsiukai.clear();
+    vargsiukai.clear();
 
     auto limitas = std::partition(grupe.begin(), grupe.end(), 
     [pasirinkimas](const studentas& s) {
@@ -246,8 +242,3 @@ void skirstytiStudentus3(std::list<studentas>& grupe, std::list<studentas>& varg
 
     grupe.erase(grupe.begin(), limitas);
 }
-        
-  
-    
-        
-    

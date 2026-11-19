@@ -287,9 +287,9 @@ else if (meniu == 4)
             cout << "Nepavyko nuskaityti failo. Testas nutrauktas.\n";
             break;
         }
-        auto t2 = std::chrono::high_resolution_clock::now();
-
         kiekis = studentai.size();
+
+        auto t2 = std::chrono::high_resolution_clock::now();
 
         if (strategija == 1) {
             skirstytiStudentus(studentai, vargsiukai, kietiakai, pasirinkimas);
@@ -298,6 +298,7 @@ else if (meniu == 4)
         } else if (strategija == 3) {
             skirstytiStudentus3(studentai, vargsiukai, pasirinkimas);
         }
+
         
         auto t3 = std::chrono::high_resolution_clock::now();
         rikiuotiStudentus(vargsiukai, rusiavimas, pasirinkimas);
@@ -330,8 +331,8 @@ else if (meniu == 4)
         sk_rasymas_kietiakai += std::chrono::duration<double>(t6 - t5).count();
         sk_bendras_laikas += std::chrono::duration<double>(t6 - t1).count();
     
-
         atlikta_bandymai++;
+
         }
         if (atlikta_bandymai == 0) {
             cout << "Testas nebuvo atliktas.\n";
