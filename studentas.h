@@ -14,6 +14,17 @@ private:
     double med_rez;
   
 public:
+    studentas();
+
+    studentas(const std::string& vardas, const std::string& pavarde, 
+        const std::vector<int>& paz, 
+        int exam, double vid_rez, double med_rez);
+    
+    studentas(const studentas& originalas);
+
+    studentas(studentas&& originalas) noexcept;
+
+    ~studentas();
 };
 
 #endif // STUDENTAS_Hf
