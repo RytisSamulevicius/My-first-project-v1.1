@@ -24,7 +24,6 @@ using std::setprecision;
 
 std::string pasirinktiFaila();
 void printas(std::ofstream& failas, const studentas& A, int pasirinkimas, int w_vardas, int w_pavarde);
-void skaiciavimas(studentas& B);
 bool lygintiPagalVarda(const studentas& a, const studentas& b);
 bool lygintiPagalPavarde(const studentas& a, const studentas& b);
 bool lygintiPagalGalutiniBala(const studentas& a, const studentas& b, int pasirinkimas);
@@ -90,9 +89,9 @@ void IrasytiIFaila(const string & failo_pavadinimas, const T& studentai, int pas
     {
         buferis <<left<<setw(20)<<s.getVardas()<<setw(20)<<s.getPavarde();
         if (pasirinkimas == 1)
-            buferis <<right<<setw(15)<<s.getVid_rez();
+            buferis <<right<<setw(15)<<s.getVidRez();
         else 
-            buferis <<right<<setw(15)<<s.getMed_rez();
+            buferis <<right<<setw(15)<<s.getMedRez();
         buferis << "\n";
     }
     failas << buferis.str();
@@ -111,9 +110,9 @@ void skirstytiStudentus (const T& grupe, T& vargsiukai, T& kietiakai, int pasiri
     {
         double galutinis;
         if (pasirinkimas == 1)
-            galutinis = s.getVid_rez();
+            galutinis = s.getVidRez();
         else
-            galutinis = s.getMed_rez();
+            galutinis = s.getMedRez();
 
         if (galutinis < 5.0) 
             vargsiukai.push_back(s);

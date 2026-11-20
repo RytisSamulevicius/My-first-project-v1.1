@@ -69,48 +69,29 @@ string pasirinktiFaila()
          }
     }    
 }
-void skaiciavimas( studentas& B)
-{
-    if (B.paz.empty()){
-        B.vid_rez = 0.6 * B.exam;
-        B.med_rez = 0.6 * B.exam;
-        return;
-    }
-    vector <int> surikiuoti_paz = B.paz;
-    std::sort(surikiuoti_paz.begin(), surikiuoti_paz.end());
-    double mediana;
-    int dydis = surikiuoti_paz.size();
-    if (dydis%2==0)
-        mediana=(surikiuoti_paz[dydis/2-1] + surikiuoti_paz[dydis/2]) / 2.0;
-    else
-        mediana=surikiuoti_paz[dydis/2];
-
-    B.vid_rez=0.4*std::accumulate(B.paz.begin(), B.paz.end(), 0.0)/B.paz.size() + 0.6*B.exam;
-    B.med_rez = 0.4*mediana + 0.6*B.exam;
-}
 void printas(std::ofstream& failas, const studentas& A, int pasirinkimas, int w_vardas, int w_pavarde){
-    failas <<"|"<<left<<setw(w_vardas)<<A.vardas<<"|"<<left<<setw(w_pavarde)<<A.pavarde;
+    failas <<"|"<<left<<setw(w_vardas)<<A.getVardas()<<"|"<<left<<setw(w_pavarde)<<A.getPavarde();
     failas <<std::fixed<<std::setprecision(2);
     if (pasirinkimas==1)
-        failas<<"|"<<right<<setw(10)<<std::fixed<<std::setprecision(2)<<A.vid_rez;
+        failas<<"|"<<right<<setw(10)<<std::fixed<<std::setprecision(2)<<A.getVidRez();
     else if (pasirinkimas == 2)
-        failas <<"|"<<right<<setw(10)<<std::fixed<<std::setprecision(2)<<A.med_rez;
+        failas <<"|"<<right<<setw(10)<<std::fixed<<std::setprecision(2)<<A.getMedRez();
     else
-         failas<<"|"<<right<<setw(10)<<A.vid_rez<<"|"<<right<<setw(10)<<A.med_rez;
+         failas<<"|"<<right<<setw(10)<<A.getVidRez()<<"|"<<right<<setw(10)<<A.getMedRez();
 
     failas<<"|\n";
 }
 bool lygintiPagalVarda(const studentas& a, const studentas& b) {
-    return a.vardas < b.vardas;
+    return a.getVardas() < b.getVardas();
 }
 bool lygintiPagalPavarde(const studentas& a, const studentas& b) {
-    return a.pavarde < b.pavarde;
+    return a.getPavarde() < b.getPavarde();
 }
 bool lygintiPagalGalutiniBala(const studentas& a, const studentas& b, int pasirinkimas) {
      if (pasirinkimas == 1) {
-        return a.vid_rez < b.vid_rez;
+        return a.getVidRez() < b.getVidRez();
     } else {
-        return a.med_rez < b.med_rez;
+        return a.getMedRez() < b.getMedRez();
     }
 }
 void rikiuotiStudentus(std::vector<studentas>& grupe, int rusiavimas, int pasirinkimas)
@@ -160,8 +141,8 @@ void skirstytiStudentus2(std::vector<studentas>& grupe, std::vector<studentas> &
     while (i < grupe.size())
     {
         double galutinis = (pasirinkimas == 1)
-            ? grupe[i].vid_rez 
-            : grupe[i].med_rez;
+            ? grupe[i].getVidRez() 
+            : grupe[i].getMedRez();
 
         if (galutinis < 5.0)
         {
@@ -186,8 +167,8 @@ void skirstytiStudentus2(std::list<studentas>& grupe, std::list<studentas> & var
     for (auto it = grupe.begin(); it != grupe.end(); ) 
     {
         double galutinis = (pasirinkimas == 1)
-            ? it->vid_rez 
-            : it->med_rez;
+            ? it->getVidRez() 
+            : it->getMedRez();
 
         if (galutinis < 5.0) 
         {
@@ -208,7 +189,7 @@ void skirstytiStudentus3(std::vector<studentas>& grupe, std::vector<studentas>& 
         grupe.begin(), 
         grupe.end(), 
         [pasirinkimas](const studentas& s) {
-            return (pasirinkimas == 1 ? s.vid_rez : s.med_rez) >= 5.0;
+            return (pasirinkimas == 1 ? s.getVidRez() : s.getMedRez()) >= 5.0;
         }
     
     );
@@ -228,7 +209,7 @@ void skirstytiStudentus3(std::list<studentas>& grupe, std::list<studentas>& varg
         grupe.begin(), 
         grupe.end(), 
         [pasirinkimas](const studentas& s) {
-            return (pasirinkimas == 1 ? s.vid_rez : s.med_rez) >= 5.0;
+            return (pasirinkimas == 1 ? s.getVidRez() : s.getMedRez()) >= 5.0;
         }
     
     );

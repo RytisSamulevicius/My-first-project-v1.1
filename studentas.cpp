@@ -18,6 +18,14 @@ studentas::studentas(const std::string& vardas,
       vid_rez(vid_rez), 
       med_rez(med_rez) {
 }
+studentas::studentas(const studentas& originalas)
+    : vardas(originalas.vardas), 
+      pavarde(originalas.pavarde), 
+      paz(originalas.paz), 
+      exam(originalas.exam), 
+      vid_rez(originalas.vid_rez), 
+      med_rez(originalas.med_rez) {
+}
 studentas::studentas(studentas&& originalas) noexcept
     : vardas(std::move(originalas.vardas)), 
       pavarde(std::move(originalas.pavarde)), 
@@ -50,8 +58,26 @@ studentas& studentas::operator=(studentas&& originalas) noexcept {
 }
 studentas::~studentas() {
 }
+const std::string& studentas::getVardas() const {
+    return vardas;
+}
+const std::string& studentas::getPavarde() const {
+    return pavarde;
+}
+const std::vector<int>& studentas::getPaz() const {
+    return paz;
+}
+int studentas::getExam() const {
+    return exam;
+}
+double studentas::getVidRez() const {
+    return vid_rez;
+}
+double studentas::getMedRez() const {
+    return med_rez;
+}   
 bool studentas::nuskaityti(std::istream& s) {
-    if (!s >> vardas >> pavarde) {
+    if (!(s >> vardas >> pavarde)) {
         return false;
     }
     std::vector<int> rezultatai;
@@ -79,7 +105,7 @@ void studentas::skaiciuoti() {
         return;
     }
     double suma = std::accumulate(paz.begin(), paz.end(), 0.0);
-    douvle vidurkis = suma / paz.size();
+    double vidurkis = suma / paz.size();
 
     std::vector<int> surikiuoti_paz = paz;
     std::sort(surikiuoti_paz.begin(), surikiuoti_paz.end());

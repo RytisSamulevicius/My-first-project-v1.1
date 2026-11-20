@@ -9,4 +9,5 @@ add_executable(programa
     main.cpp
     funkcijos.cpp
     generavimas.cpp
+    studentas.cpp
 )

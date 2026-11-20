@@ -28,7 +28,6 @@ template <typename T>
 void ProgramosVeikimas()
 {
   T grupe;
-  studentas A;
   int meniu;
   srand(time(0));
 
@@ -67,10 +66,12 @@ void ProgramosVeikimas()
 
       while (true)
       {
-          cout<<"Iveskite varda "; cin>>A.vardas;
-          cout<<"Iveskite pavarde "; cin>>A.pavarde;
+          string vardas, pavarde;
+          vector<int> paz;
+          int exam = 0;
 
-          A.paz.clear();
+          cout<<"Iveskite varda "; cin>>vardas;
+          cout<<"Iveskite pavarde "; cin>>pavarde;
 
           while (true){
           char kl;
@@ -90,13 +91,13 @@ void ProgramosVeikimas()
                     cout << "Pazymys turi buti nuo 1 iki 10.\n";
                     continue;
                 }
-                A.paz.push_back(n);
+                paz.push_back(n);
              }
              else
                 {
                     n = rand() % 10 + 1;
                     cout << "Sugeneruotas namu darbu pazymys: "<<n<<"\n";
-                    A.paz.push_back(n);
+                    paz.push_back(n);
                 }
           }
         
@@ -113,8 +114,8 @@ void ProgramosVeikimas()
       {
           while (true) 
           {
-              cout<<"Iveskite semestro Egzamino paz.: ";cin>>A.exam;
-              if (cin.fail() || A.exam < 1 || A.exam > 10) 
+              cout<<"Iveskite semestro Egzamino paz.: ";cin>>exam;
+              if (cin.fail() || exam < 1 || exam > 10) 
               {
                 cin.clear();
                 cin.ignore(10000, '\n');
@@ -129,17 +130,16 @@ void ProgramosVeikimas()
        }
        else
        {
-           A.exam = rand() % 10 + 1;
-           cout << "Sugeneruotas Egzamino pazymys: "<<A.exam<<"\n";
+           exam = rand() % 10 + 1;
+           cout << "Sugeneruotas Egzamino pazymys: "<<exam<<"\n";
        }
-          skaiciavimas(A);
-          grupe.push_back(A);
+          studentas A(vardas, pavarde, paz, exam, 0.0, 0.0);
+          A.skaiciuoti();
+
+          grupe.push_back(std::move(A));
           
           cout << "Studento objekto adresas atmintyje: " << &grupe.back() << "\n";
 
-          A.pavarde.clear();
-          A.vardas.clear();
-          A.paz.clear();
           char kl;
           while (true)
           {
@@ -183,8 +183,8 @@ else if (meniu == 4)
     size_t max_vardas = string("Vardas").size();
     size_t max_pavarde = string("Pavarde").size();
     for (const auto& s: grupe) {
-        max_vardas = std::max(max_vardas, s.vardas.size());
-        max_pavarde = std::max(max_pavarde, s.pavarde.size());
+        max_vardas = std::max(max_vardas, s.getVardas().size());
+        max_pavarde = std::max(max_pavarde, s.getPavarde().size());
     }
     int w_vardas = static_cast<int>(max_vardas) + 2;
     int w_pavarde = static_cast<int>(max_pavarde) + 2;
