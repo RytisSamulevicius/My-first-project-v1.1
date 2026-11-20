@@ -3,6 +3,7 @@
 #include <sstream>
 #include <algorithm>
 #include <numeric>
+#include <stdexcept>
 
 studentas::studentas(std::istream & s) : studentas() {
     if (nuskaityti(s)) {

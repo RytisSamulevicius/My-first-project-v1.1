@@ -10,9 +10,9 @@ private:
     std::string vardas_;
     std::string pavarde_;
     std::vector<int> paz_;
-    int exam_ = 0;
-    double vid_rez_ = 0.0;
-    double med_rez_ = 0.0;
+    int exam_;
+    double vid_rez_;
+    double med_rez_;
   
 public:
 
