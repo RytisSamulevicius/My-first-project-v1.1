@@ -7,26 +7,17 @@
 
 class studentas {
 private:
-    std::string vardas;
-    std::string pavarde;
-    std::vector<int> paz;
-    int exam = 0;
-    double vid_rez = 0.0;
-    double med_rez = 0.0;
+    std::string vardas_;
+    std::string pavarde_;
+    std::vector<int> paz_;
+    int exam_ = 0;
+    double vid_rez_ = 0.0;
+    double med_rez_ = 0.0;
   
 public:
-    studentas();
 
-    studentas(const std::string& vardas, const std::string& pavarde, 
-        const std::vector<int>& paz, 
-        int exam, double vid_rez, double med_rez);
-    
-    studentas(const studentas& originalas);
-
-    studentas(studentas&& originalas) noexcept;
-
-    studentas& operator=(const studentas& originalas);
-    studentas& operator=(studentas&& originalas) noexcept;
+    studentas(): exam_(0), vid_rez_(0.0), med_rez_(0.0) {}
+    explicit studentas(std::istream& s);
 
     ~studentas();
 
@@ -43,4 +34,4 @@ public:
 
 };
 
-#endif // STUDENTAS_Hf
+#endif // STUDENTAS_H

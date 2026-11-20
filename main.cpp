@@ -133,8 +133,14 @@ void ProgramosVeikimas()
            exam = rand() % 10 + 1;
            cout << "Sugeneruotas Egzamino pazymys: "<<exam<<"\n";
        }
-          studentas A(vardas, pavarde, paz, exam, 0.0, 0.0);
-          A.skaiciuoti();
+          std::stringstream ss;
+          ss << vardas << " " << pavarde;
+          for (int p : paz) {
+               ss << " " << p;
+          }
+          ss << " " << exam;
+
+          studentas A(ss);
 
           grupe.push_back(std::move(A));
           
