@@ -53,15 +53,8 @@ bool NuskaitytiFaila(const std::string & failo_pavadinimas, T& grupe)
     while(std::getline(buferis, eilute))
     {
         std::stringstream s(eilute);
-
-        try {
-            studentas S(s);
-            grupe.push_back(std::move(S));
-        } catch (const std::runtime_error& e) {
-            std::cout << "Klaida nuskaityme: " << e.what() << "\n";
-            
-        }
-       
+        studentas S(s);
+        grupe.push_back(std::move(S));
         
     }
     return !grupe.empty();
