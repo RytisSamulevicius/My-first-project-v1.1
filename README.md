@@ -243,3 +243,66 @@ macOS arba Linux sistemose:
 ```
 
 Windows sistemoje vykdomojo failo vieta priklauso nuo naudojamo generatoriaus ir kompiliavimo aplinkos.
+
+# v1.1 – Studentų įvertinimų programa
+
+## Struct ir Class palyginimas
+
+Palygintos dvi programos versijos: `v1.0`, naudojanti `struct`, ir `v1.1`, naudojanti `class`.
+
+Testavimui naudotas `std::vector` konteineris, trečioji (greičiausia) skirstymo strategija ir 100 000 bei 1 000 000 studentų failai.
+
+Pirmiausia ištirtas veikimo laikas tarp strategijų nenaudojant optimizavimo lygių.
+
+### Testavimo rezultatai
+
+| Versija | 100 000 (s) | 1 000 000 (s) |
+|---|---:|---:|
+| struct | 0.010911 | 0.110361 |
+| class | 0.019673 | 0.200210 |
+
+## Rezultatų analizė
+
+Atlikus bandymus nustatyta, kad `struct` versija veikė greičiau už `class` versiją. 
+
+Toliau atliekamas tyrimas su optimizavimo lygiais (ištirtas greitis tarp skirtingų failų, bei exe failo dydis)
+
+### Testavimo rezultatai
+
+| **Versija** | **Optimizavimas** | **100 000 (s)** | **1 000 000 (s)** | **EXE dydis (B)** |
+|---|---|---:|---:|---:|
+| struct | O1 | 0.000741 | 0.009465 | 120 408 |
+| struct | O2 | 0.000768 | 0.008682 | 120 120 |
+| struct | O3 | 0.000759 | 0.010051 | 119 576 |
+| class | O1 | 0.002092 | 0.023258 | 104 728 |
+| class | O2 | 0.002133 | 0.021249 | 104 728 |
+| class | O3 | 0.002008 | 0.021121 | 120 840 |
+
+## Rezultatų analizė
+
+Atlikus bandymus nustatyta, kad `struct` versija veikė greičiau už `class` versiją. Geriausias `struct` rezultatas su 1 000 000 studentų pasiektas naudojant O2, o `class` versijos – O3 optimizavimo lygį.
+
+Vykdomųjų failų dydžiai skyrėsi priklausomai nuo programos versijos ir optimizavimo lygio.
+
+## Išvados
+
+- `struct` versija pagal atliktus bandymus buvo greitesnė.
+- Mažiausias vykdomojo failo dydis gautas `struct` O3 versijoje.
+- Perėjimas nuo `struct` prie `class` savaime negarantuoja didesnės programos spartos.
+
+## Programos kompiliavimas ir paleidimas
+
+Reikalingas C++ kompiliatorius (GCC arba Clang) ir CMake.
+
+Kompiliavimas:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+```
+
+Paleidimas macOS arba Linux sistemoje:
+
+```bash
+./build/programa
+```
