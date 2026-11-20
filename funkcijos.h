@@ -27,6 +27,8 @@ bool lygintiPagalPavarde(const studentas& a, const studentas& b);
 bool lygintiPagalGalutiniBala(const studentas& a, const studentas& b, int pasirinkimas);
 void rikiuotiStudentus(std::vector<studentas>&grupe, int rusiavimas, int pasirinkimas);
 void rikiuotiStudentus(std::list<studentas>&grupe, int rusiavimas, int pasirinkimas);
+void skirstytiStudentus2(std::vector<studentas>& grupe, std::vector<studentas>& vargsiukai, int pasirinkimas);
+void skirstytiStudentus2(std::list<studentas>& grupe, std::list<studentas>& vargsiukai, int pasirinkimas);
 void skirstytiStudentus3(std::vector<studentas>& grupe, std::vector<studentas>& vargsiukai, int pasirinkimas);
 void skirstytiStudentus3(std::list<studentas>& grupe, std::list<studentas>& vargsiukai, int pasirinkimas);
 
